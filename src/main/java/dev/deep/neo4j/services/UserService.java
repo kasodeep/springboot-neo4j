@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class UserService {
 
@@ -17,7 +19,10 @@ public class UserService {
     private PasswordEncoder passwordEncoder;
 
     public User createUser(CreateUserRequest request) {
-        // TODO: Make sure that this doesn't exists.
+        Optional<User> userByUsername = userRepository.findUserByUsername(request.getUsername());
+        if (userByUsername.isPresent())
+            throw new IllegalArgumentException("User with username exists: " + request.getUsername());
+
         User user = User.builder()
                 .name(request.getName())
                 .username(request.getUsername())

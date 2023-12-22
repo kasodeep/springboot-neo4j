@@ -23,7 +23,10 @@ public class CourseEnrolmentService {
     }
 
     public CourseEnrolmentQueryResult enrollIn(String username, String identifier) {
-        // TODO: make sure that the user has not been enrolled in the course.
+        List<Course> courses = courseRepository.findAllEnrolledCoursesByUsername(username);
+        long count = courses.stream().filter((course) -> course.getIdentifier().equals(identifier)).count();
+
+        if (count != 0) return null;
         return userRepository.createEnrolmentRelationship(username, identifier);
     }
 
