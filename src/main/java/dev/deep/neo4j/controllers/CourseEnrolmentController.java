@@ -27,9 +27,13 @@ public class CourseEnrolmentController {
     private LessonService lessonService;
 
     @PostMapping
-    public ResponseEntity<CourseEnrolmentDTO> enrollIn(@RequestBody CourseEnrolmentRequest request, Principal principal) {
+    public ResponseEntity<?> enrollIn(@RequestBody CourseEnrolmentRequest request, Principal principal) {
         CourseEnrolmentQueryResult enrolmentQueryResult = courseEnrolmentService
                 .enrollIn(principal.getName(), request.getCourseIdentifier());
+
+        if(enrolmentQueryResult == null){
+            return new ResponseEntity<>("User already enrolled", HttpStatus.OK);
+        }
 
         CourseEnrolmentDTO courseEnrolmentDTO = CourseEnrolmentDTO.builder()
                 .username(enrolmentQueryResult.getUser().getUsername())

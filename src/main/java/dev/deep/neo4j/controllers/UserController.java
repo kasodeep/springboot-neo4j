@@ -27,7 +27,11 @@ public class UserController {
     public ResponseEntity<UserDTO> signup(@RequestBody CreateUserRequest request) {
         User user = userService.createUser(request);
 
-        UserDTO userDTO = UserDTO.builder().name(user.getName()).username(user.getUsername()).roles(user.getRoles()).build();
+        UserDTO userDTO = UserDTO.builder()
+                .name(user.getName())
+                .username(user.getUsername())
+                .roles(user.getRoles())
+                .build();
         return new ResponseEntity<>(userDTO, HttpStatus.CREATED);
     }
 }

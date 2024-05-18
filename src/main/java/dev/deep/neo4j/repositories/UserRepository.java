@@ -11,12 +11,12 @@ public interface UserRepository extends Neo4jRepository<User, Long> {
 
     Optional<User> findUserByUsername(String username);
 
-    @Query("MATCH (user:User), (course:Course) WHERE user.username = $username AND course.identifier = $identifier " +
+    @Query("MATCH (user:User { username:$username }), (course:Course { identifier: $identifier }) " +
             "RETURN EXISTS((user)-[:ENROLLED_IN]->(course))")
     Boolean findEnrolmentStatus(String username, String identifier);
 
     @Query("MATCH (user:User), (course:Course) WHERE user.username = $username AND course.identifier = $identifier " +
-            "CREATE (user)-[:ENROLLED_IN]->(course) " +
+            "MERGE (user)-[:ENROLLED_IN]->(course) " +
             "RETURN user, course")
     CourseEnrolmentQueryResult createEnrolmentRelationship(String username, String identifier);
 }

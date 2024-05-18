@@ -42,7 +42,8 @@ public class CourseController {
                 .isEnrolled(principal != null
                         ? courseEnrolmentService.getEnrolmentStatus(principal.getName(), course.getIdentifier())
                         : false)
-                .build()).collect(Collectors.toList());
+                .build())
+                .collect(Collectors.toList());
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
