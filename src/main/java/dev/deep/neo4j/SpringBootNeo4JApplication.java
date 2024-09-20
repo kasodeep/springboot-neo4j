@@ -9,5 +9,4 @@ public class SpringBootNeo4JApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SpringBootNeo4JApplication.class, args);
 	}
-
 }

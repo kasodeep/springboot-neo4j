@@ -20,7 +20,8 @@ public class CourseService {
     }
 
     public Course getCourse(String identifier){
-        return courseRepository.findCourseByIdentifier(identifier)
+        return courseRepository
+                .findCourseByIdentifier(identifier)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatusCode.valueOf(404)));
     }
 }

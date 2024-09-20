@@ -19,7 +19,9 @@ public class UserService {
     private PasswordEncoder passwordEncoder;
 
     public User createUser(CreateUserRequest request) {
-        Optional<User> userByUsername = userRepository.findUserByUsername(request.getUsername());
+        Optional<User> userByUsername = userRepository
+                .findUserByUsername(request.getUsername());
+
         if (userByUsername.isPresent())
             throw new IllegalArgumentException("User with username exists: " + request.getUsername());
 
