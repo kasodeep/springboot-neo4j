@@ -23,8 +23,11 @@ import java.util.List;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    @Autowired
-    private NeoUserDetailService neoUserDetailService;
+    private final NeoUserDetailService neoUserDetailService;
+
+    public SecurityConfig(NeoUserDetailService neoUserDetailService) {
+        this.neoUserDetailService = neoUserDetailService;
+    }
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
